@@ -1,0 +1,259 @@
+{% comment %}
+  ArSs Dark Deco — Hero Banner Section
+  Animated cityscape with parallax and 3D Art Deco elements
+{% endcomment %}
+
+<section class="hero" id="hero">
+
+  <!-- Sky gradient -->
+  <div class="hero-sky"></div>
+
+  <!-- Star field canvas -->
+  <div class="hero-stars" id="hero-stars-container"></div>
+
+  <!-- Art Deco geometry canvas (floating shapes) -->
+  <canvas id="deco-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;"></canvas>
+
+  <!-- Parallax city layers (SVG injected by JS) -->
+  <div class="hero-city-far"  data-parallax="0.15"></div>
+  <div class="hero-city-mid"  data-parallax="0.30"></div>
+  <div class="hero-city-near" data-parallax="0.50"></div>
+
+  <!-- Ground fog -->
+  <div class="hero-fog"></div>
+
+  <!-- Atmospheric vignette -->
+  <div class="hero-vignette"></div>
+
+  <!-- Horizontal scan line effect -->
+  <div class="hero-scanlines" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <div class="hero-content">
+
+    <!-- Eyebrow label -->
+    <p class="hero-eyebrow">
+      {%- if section.settings.eyebrow != blank -%}
+        {{ section.settings.eyebrow }}
+      {%- else -%}
+        Dark &nbsp;&#9670;&nbsp; Deco &nbsp;&#9670;&nbsp; Fashion
+      {%- endif -%}
+    </p>
+
+    <!-- Brand title -->
+    <div class="hero-title-wrapper">
+      <h1 class="hero-title" aria-label="{{ section.settings.heading | default: shop.name }}">
+        {{ section.settings.heading | default: shop.name }}
+        <span class="hero-title-fill" aria-hidden="true">
+          {{ section.settings.heading | default: shop.name }}
+        </span>
+      </h1>
+    </div>
+
+    <!-- Decorative line -->
+    <div class="hero-deco-line">
+      <span class="hero-deco-diamond"></span>
+      <span class="hero-deco-diamond hero-deco-diamond--sm"></span>
+      <span class="hero-deco-diamond"></span>
+    </div>
+
+    <!-- Subtitle -->
+    {%- if section.settings.subheading != blank -%}
+      <p class="hero-subtitle">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <!-- CTA Buttons -->
+    <div class="hero-cta-group">
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: routes.collections_url }}"
+           class="btn btn-primary">
+          {{ section.settings.cta_label }}
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M0 5h12M8 1l4 4-4 4"/>
+          </svg>
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta_2_label != blank -%}
+        <a href="{{ section.settings.cta_2_url | default: routes.collections_url }}"
+           class="btn btn-secondary">
+          {{ section.settings.cta_2_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll">
+    <div class="hero-scroll__line"></div>
+    <span class="hero-scroll__text">Scroll</span>
+  </div>
+
+</section>
+
+<style>
+  /* ─── Hero scan lines ────────────────────────────────── */
+  .hero-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.08) 2px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* Title wrapper */
+  .hero-title-wrapper {
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Diamond decorators */
+  .hero-deco-diamond {
+    width: 0.8rem;
+    height: 0.8rem;
+    background: var(--c-gold);
+    transform: rotate(45deg);
+    box-shadow: var(--glow-gold);
+    flex-shrink: 0;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  .hero-deco-diamond--sm {
+    width: 0.4rem;
+    height: 0.4rem;
+    animation-delay: 0.5s;
+  }
+
+  /* Scroll indicator */
+  .hero-scroll {
+    position: absolute;
+    bottom: var(--space-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    z-index: 10;
+    animation: fadeIn 1s 2s both;
+  }
+
+  .hero-scroll__line {
+    width: 1px;
+    height: 5rem;
+    background: linear-gradient(180deg, var(--c-gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  .hero-scroll__text {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--c-text-dim);
+    writing-mode: horizontal-tb;
+  }
+
+  @keyframes scrollPulse {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* Hero title glitch on load */
+  @keyframes titleGlitch {
+    0%   { clip-path: inset(0 0 100% 0); opacity: 1; }
+    10%  { clip-path: inset(0 0 85% 0); opacity: 0.8; transform: skewX(-1deg); }
+    20%  { clip-path: inset(0 0 70% 0); opacity: 1; }
+    30%  { clip-path: inset(0 0 50% 0); opacity: 0.9; transform: skewX(0.5deg); }
+    40%  { clip-path: inset(0 0 30% 0); opacity: 1; }
+    50%  { clip-path: inset(0 0 10% 0); opacity: 0.95; }
+    60%  { clip-path: inset(0 0 0% 0);  opacity: 1; transform: none; }
+    100% { clip-path: inset(0 0 0% 0);  opacity: 1; transform: none; }
+  }
+
+  .hero-title {
+    animation: heroTitleReveal 1.4s var(--ease-out) 0.5s both;
+  }
+
+  /* Red glow accent on the brand name */
+  .hero-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      var(--c-crimson) 20%,
+      var(--c-gold) 50%,
+      var(--c-crimson) 80%,
+      transparent 100%
+    );
+    opacity: 0.6;
+    animation: fadeIn 1s 1.5s both;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Dark · Deco · Fashion"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "ArSs"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Born in the shadows. Worn in the night."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Primary button label",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_label",
+      "label": "Secondary button label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_url",
+      "label": "Secondary button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

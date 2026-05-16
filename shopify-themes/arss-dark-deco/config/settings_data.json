@@ -1,0 +1,12 @@
+{
+  "current": {
+    "color_background": "#05050a",
+    "color_text": "#e8e0d0",
+    "color_accent_gold": "#c9913a",
+    "color_accent_crimson": "#c0102a",
+    "color_accent_teal": "#2ab8c0",
+    "cart_type": "drawer",
+    "animations_reveal_on_scroll": true,
+    "animations_hover_elements": "lift"
+  }
+}

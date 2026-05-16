@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "hero-banner": {
+      "type": "hero-banner",
+      "settings": {
+        "eyebrow": "Dark · Deco · Fashion",
+        "heading": "ArSs",
+        "subheading": "Born in the shadows. Worn in the night.",
+        "cta_label": "Shop Collection",
+        "cta_2_label": "Our Story"
+      }
+    },
+    "marquee-1": {
+      "type": "marquee-banner",
+      "settings": {
+        "text": "New Collection Available | Free Shipping +$150 | Limited Edition Drops | Dark Deco Fashion | ArSs — Shadows Made Tangible",
+        "speed": 22
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "New Arrivals",
+        "title": "The Collection",
+        "description": "Limited runs. Every piece a statement.",
+        "products_limit": 8,
+        "show_view_all": true
+      }
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {
+        "eyebrow": "Our Manifesto",
+        "heading": "Shadows Made Tangible",
+        "show_stats": true,
+        "stat_1_number": "100%",
+        "stat_1_label": "Limited Runs",
+        "stat_2_number": "48h",
+        "stat_2_label": "Production",
+        "stat_3_number": "∞",
+        "stat_3_label": "Aesthetic",
+        "cta_label": "Read Our Story",
+        "cta_url": "/pages/about"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Join the Circle",
+        "heading": "Enter the Shadow",
+        "subtext": "Be first to know about new drops, exclusive pieces, and what lurks in the dark.",
+        "button_text": "Subscribe"
+      }
+    }
+  },
+  "order": [
+    "hero-banner",
+    "marquee-1",
+    "featured-collection",
+    "brand-story",
+    "newsletter"
+  ]
+}

@@ -1,0 +1,248 @@
+{% comment %}
+  ArSs Dark Deco — Featured Collection Section
+{% endcomment %}
+
+{%- assign collection = collections[section.settings.collection] -%}
+{%- assign limit = section.settings.products_limit | default: 8 -%}
+
+<section class="section featured-collection" id="collection-{{ section.id }}">
+
+  <!-- Top decorative line -->
+  <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:6rem;background:linear-gradient(180deg,transparent,var(--c-gold-dim));"></div>
+
+  <div class="container">
+
+    <!-- Section Header -->
+    <div class="section-header reveal">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Collection' }}</p>
+
+      <div class="deco-line" style="margin:var(--space-sm) 0 var(--space-md);">
+        <span style="width:4rem;height:1px;background:var(--c-gold);opacity:0.5;"></span>
+        <span style="width:0.6rem;height:0.6rem;background:var(--c-gold);transform:rotate(45deg);"></span>
+        <span style="width:4rem;height:1px;background:var(--c-gold);opacity:0.5;"></span>
+      </div>
+
+      <h2>{{ section.settings.title | default: collection.title | default: 'Our Pieces' }}</h2>
+
+      {%- if section.settings.description != blank -%}
+        <p style="font-size:1.7rem;color:var(--c-text-muted);max-width:52rem;margin:var(--space-md) auto 0;font-weight:300;line-height:1.9;">
+          {{ section.settings.description }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid stagger-children" id="product-grid-{{ section.id }}">
+
+      {%- if collection != blank -%}
+        {%- for product in collection.products limit: limit -%}
+          <article class="product-card" data-product-id="{{ product.id }}">
+            <!-- Corner ornaments -->
+            <div class="deco-corner deco-corner--tl"></div>
+            <div class="deco-corner deco-corner--tr"></div>
+            <div class="deco-corner deco-corner--bl"></div>
+            <div class="deco-corner deco-corner--br"></div>
+
+            <!-- Badges -->
+            {%- if product.available == false -%}
+              <span class="badge-sold-out">Sold Out</span>
+            {%- elsif product.compare_at_price > product.price -%}
+              <span class="badge-sale">Sale</span>
+            {%- endif -%}
+
+            <!-- Image -->
+            <a href="{{ product.url }}" class="product-card__media" tabindex="-1" aria-hidden="true">
+              {%- if product.featured_media -%}
+                <img
+                  src="{{ product.featured_media | image_url: width: 600 }}"
+                  alt="{{ product.featured_media.alt | escape }}"
+                  width="{{ product.featured_media.width }}"
+                  height="{{ product.featured_media.height }}"
+                  loading="lazy"
+                  class="product-card__img"
+                >
+                {%- if product.media[1] != blank -%}
+                  <img
+                    src="{{ product.media[1] | image_url: width: 600 }}"
+                    alt="{{ product.media[1].alt | escape }}"
+                    width="{{ product.media[1].width }}"
+                    height="{{ product.media[1].height }}"
+                    loading="lazy"
+                    class="product-card__img product-card__img--hover"
+                    style="position:absolute;inset:0;opacity:0;transition:opacity 0.4s;"
+                  >
+                {%- endif -%}
+              {%- else -%}
+                <div style="width:100%;height:100%;background:var(--c-surface);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:var(--font-heading);font-size:1.2rem;letter-spacing:0.2em;color:var(--c-text-dim);">No Image</span>
+                </div>
+              {%- endif -%}
+
+              <div class="product-card__media-overlay"></div>
+
+              <!-- Quick add -->
+              {%- if product.available -%}
+                <div class="product-card__quick-add">
+                  {%- if product.variants.size == 1 -%}
+                    <button class="btn btn-primary"
+                            style="width:100%;"
+                            data-quick-add="{{ product.variants.first.id }}"
+                            aria-label="Add {{ product.title | escape }} to cart">
+                      Add to Cart
+                    </button>
+                  {%- else -%}
+                    <a href="{{ product.url }}" class="btn btn-secondary" style="width:100%;">
+                      Select Options
+                    </a>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </a>
+
+            <!-- Product Info -->
+            <div class="product-card__info">
+              <p class="product-card__vendor">{{ product.vendor }}</p>
+              <a href="{{ product.url }}">
+                <h3 class="product-card__title">{{ product.title }}</h3>
+              </a>
+              <p class="product-card__price">
+                {%- if product.compare_at_price > product.price -%}
+                  <s>{{ product.compare_at_price | money }}</s>
+                  <span class="sale">{{ product.price | money }}</span>
+                {%- else -%}
+                  {{ product.price | money }}
+                {%- endif -%}
+              </p>
+            </div>
+          </article>
+        {%- endfor -%}
+
+      {%- else -%}
+        <!-- Placeholder cards for theme preview -->
+        {%- for i in (1..4) -%}
+          <article class="product-card">
+            <div class="deco-corner deco-corner--tl"></div>
+            <div class="deco-corner deco-corner--tr"></div>
+            <div class="deco-corner deco-corner--bl"></div>
+            <div class="deco-corner deco-corner--br"></div>
+            <div class="product-card__media">
+              <div class="skeleton" style="width:100%;height:100%;aspect-ratio:3/4;"></div>
+            </div>
+            <div class="product-card__info">
+              <div class="skeleton" style="height:1rem;width:6rem;margin-bottom:0.8rem;border-radius:2px;"></div>
+              <div class="skeleton" style="height:1.6rem;width:80%;margin-bottom:0.8rem;border-radius:2px;"></div>
+              <div class="skeleton" style="height:1.4rem;width:5rem;border-radius:2px;"></div>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+
+    </div>
+
+    <!-- View All Link -->
+    {%- if section.settings.show_view_all -%}
+      <div style="text-align:center;margin-top:var(--space-xl);" class="reveal">
+        <a href="{{ collection.url | default: routes.collections_url }}" class="btn btn-secondary">
+          View Full Collection
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M0 5h12M8 1l4 4-4 4"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  /* Hover: show second image */
+  .product-card:hover .product-card__img:first-child { opacity: 0; }
+  .product-card:hover .product-card__img--hover { opacity: 1 !important; }
+</style>
+
+<script>
+  // Quick add to cart
+  document.querySelectorAll('[data-quick-add]').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const variantId = btn.dataset.quickAdd;
+      btn.textContent = '...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: variantId, quantity: 1 }),
+        });
+        if (res.ok) {
+          btn.textContent = 'Added!';
+          btn.style.background = 'var(--c-teal)';
+          // Update cart count
+          const cart = await fetch('/cart.js').then(r => r.json());
+          const countEl = document.querySelector('.cart-count');
+          if (countEl) countEl.textContent = cart.item_count;
+          setTimeout(() => {
+            btn.textContent = 'Add to Cart';
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 1500);
+        }
+      } catch (err) {
+        btn.textContent = 'Add to Cart';
+        btn.disabled = false;
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "The Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Number of products",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' link",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

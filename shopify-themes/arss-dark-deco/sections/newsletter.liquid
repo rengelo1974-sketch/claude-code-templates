@@ -1,0 +1,166 @@
+{% comment %}
+  ArSs Dark Deco — Newsletter Section
+{% endcomment %}
+
+<section class="section--sm newsletter-section" id="newsletter">
+
+  <!-- Art Deco sunburst ornament -->
+  <div class="newsletter-ornament" aria-hidden="true">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+         style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40vw;max-width:50rem;opacity:0.04;pointer-events:none;">
+      <g stroke="#c9913a" fill="none" stroke-width="0.5">
+        <!-- Concentric circles -->
+        <circle cx="100" cy="100" r="20"/>
+        <circle cx="100" cy="100" r="40"/>
+        <circle cx="100" cy="100" r="60"/>
+        <circle cx="100" cy="100" r="80"/>
+        <circle cx="100" cy="100" r="95"/>
+        <!-- Radial lines (sunburst) -->
+        {%- for i in (0..23) -%}
+          {%- assign angle = i | times: 15 -%}
+        {%- endfor -%}
+        <line x1="100" y1="5"   x2="100" y2="20"/>
+        <line x1="100" y1="180" x2="100" y2="195"/>
+        <line x1="5"   y1="100" x2="20"  y2="100"/>
+        <line x1="180" y1="100" x2="195" y2="100"/>
+        <line x1="29"  y1="29"  x2="39"  y2="39"/>
+        <line x1="161" y1="29"  x2="151" y2="39"/>
+        <line x1="29"  y1="171" x2="39"  y2="161"/>
+        <line x1="161" y1="171" x2="151" y2="161"/>
+        <!-- More rays -->
+        <line x1="54"  y1="6"   x2="58"  y2="21"/>
+        <line x1="146" y1="6"   x2="142" y2="21"/>
+        <line x1="6"   y1="54"  x2="21"  y2="58"/>
+        <line x1="6"   y1="146" x2="21"  y2="142"/>
+        <line x1="194" y1="54"  x2="179" y2="58"/>
+        <line x1="194" y1="146" x2="179" y2="142"/>
+        <line x1="54"  y1="194" x2="58"  y2="179"/>
+        <line x1="146" y1="194" x2="142" y2="179"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div style="max-width:60rem;margin:0 auto;text-align:center;">
+
+      <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Join the Circle' }}</p>
+
+      <h2 class="reveal" style="margin-top:var(--space-sm);">
+        {{ section.settings.heading | default: 'Enter the Shadow' }}
+      </h2>
+
+      <p class="reveal" style="
+        font-size:1.8rem;
+        font-weight:300;
+        color:var(--c-text-muted);
+        margin-top:var(--space-md);
+        line-height:1.9;
+      ">
+        {{ section.settings.subtext | default: 'Be first to know about new drops, exclusive pieces, and what lurks in the dark.' }}
+      </p>
+
+      <div class="reveal" style="margin-top:var(--space-lg);">
+        {% form 'customer', id: 'newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-form">
+            <input
+              type="email"
+              name="contact[email]"
+              class="newsletter-input"
+              placeholder="{{ section.settings.placeholder | default: 'Your email address' }}"
+              required
+              autocorrect="off"
+              autocapitalize="off"
+            >
+            <button type="submit" class="newsletter-btn">
+              {{ section.settings.button_text | default: 'Subscribe' }}
+            </button>
+          </div>
+
+          {%- if form.posted_successfully? -%}
+            <p style="
+              margin-top:var(--space-md);
+              font-family:var(--font-ui);
+              font-size:1.3rem;
+              letter-spacing:0.1em;
+              color:var(--c-teal);
+            ">
+              {{ section.settings.success_message | default: 'Welcome to the shadows. You\'re in.' }}
+            </p>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <p style="
+              margin-top:var(--space-md);
+              font-family:var(--font-ui);
+              font-size:1.3rem;
+              color:var(--c-crimson);
+            ">
+              {{ form.errors | default_errors }}
+            </p>
+          {%- endif -%}
+        {% endform %}
+
+        <p style="
+          margin-top:var(--space-md);
+          font-family:var(--font-ui);
+          font-size:1.1rem;
+          color:var(--c-text-dim);
+          letter-spacing:0.1em;
+        ">
+          No spam. Unsubscribe anytime. &nbsp;&#9670;&nbsp; We respect your privacy.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Join the Circle"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Enter the Shadow"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Supporting text"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Welcome to the shadows. You're in."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter",
+      "category": "Email capture"
+    }
+  ]
+}
+{% endschema %}

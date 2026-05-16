@@ -1,0 +1,69 @@
+{% comment %}
+  ArSs Dark Deco — Marquee / Announcement Banner
+{% endcomment %}
+
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-track" id="marquee-{{ section.id }}">
+    {%- assign items = section.settings.text | split: '|' -%}
+    {%- for _rep in (1..4) -%}
+      {%- for item in items -%}
+        <span class="marquee-item">
+          <span class="marquee-diamond"></span>
+          {{ item | strip }}
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  #marquee-{{ section.id }} {
+    animation-duration: {{ section.settings.speed | default: 25 }}s;
+    {%- if section.settings.direction == 'rtl' -%}
+    animation-direction: reverse;
+    {%- endif -%}
+  }
+
+  .marquee-section:hover .marquee-track {
+    animation-play-state: paused;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Marquee Banner",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Items (separate with |)",
+      "default": "Free Shipping on Orders Over $150 | Dark Deco Fashion | Limited Edition Pieces | ArSs — Born in the Shadows | New Collection Available Now"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 25
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        { "value": "ltr", "label": "Left to Right" },
+        { "value": "rtl", "label": "Right to Left" }
+      ],
+      "default": "ltr"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Banner",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}
