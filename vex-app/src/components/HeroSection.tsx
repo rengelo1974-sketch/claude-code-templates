@@ -29,7 +29,7 @@ export function HeroSection() {
             {/* Left column */}
             <div>
               <AnimatedHeading
-                text={"Shaping tomorrow\nwith vision and action."}
+                text={"Wear the dark\nside of elegance."}
                 className="font-normal text-white mb-4 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
                 style={{ letterSpacing: '-0.04em' }}
                 delay={200}
@@ -38,16 +38,16 @@ export function HeroSection() {
 
               <FadeIn delay={800} duration={1000}>
                 <p className="text-base md:text-lg text-gray-300 mb-5">
-                  We back visionaries and craft ventures that define what comes next.
+                  Garments forged in Art Deco darkness. Each piece a statement for those who own the night.
                 </p>
               </FadeIn>
 
               <FadeIn delay={1200} duration={1000} className="flex flex-wrap gap-4">
                 <MagneticButton className="bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200">
-                  Start a Chat
+                  Shop Collection
                 </MagneticButton>
                 <MagneticButton className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-all duration-300">
-                  Explore Now
+                  View Lookbook
                 </MagneticButton>
               </FadeIn>
             </div>
@@ -60,7 +60,7 @@ export function HeroSection() {
             >
               <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
                 <p className="text-lg md:text-xl lg:text-2xl font-light text-white">
-                  Investing. Building. Advisory.
+                  SS25 Collection — Now Live.
                 </p>
               </div>
             </FadeIn>

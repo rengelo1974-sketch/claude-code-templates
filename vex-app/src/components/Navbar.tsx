@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { MagneticButton } from './MagneticButton'
 
-const links = ['Story', 'Investing', 'Building', 'Advisory']
+const links = ['Collection', 'Lookbook', 'About', 'Store']
 
 export function Navbar() {
   const [activeLink, setActiveLink] = useState<string | null>(null)
@@ -24,12 +24,8 @@ export function Navbar() {
             : 'inset 0 1px 1px rgba(255,255,255,0.1)',
         }}
       >
-        {/* Logo */}
-        <span className="text-2xl font-semibold tracking-tight text-white select-none">
-          VEX
-        </span>
+        <span className="text-2xl font-semibold tracking-tight text-white select-none">VEX</span>
 
-        {/* Center links */}
         <div className="hidden md:flex items-center gap-8 text-sm text-white">
           {links.map((link) => (
             <a
@@ -49,9 +45,8 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* CTA */}
         <MagneticButton className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors duration-200">
-          Start a Chat
+          Shop Now
         </MagneticButton>
       </nav>
     </div>
